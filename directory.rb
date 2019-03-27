@@ -58,7 +58,7 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list"
-  puts "9. Exit" # 9 because we'll be adding more items
+  puts "9. Exit"
 end
 
 def show_students
@@ -83,7 +83,7 @@ def process(selection)
 end
 
 def save_students
-  #open the file for writin
+  #open the file for writing
   file = File.open("students.csv", "w")
   #iterate over the array of students
   @students.each do |student|
