@@ -1,8 +1,9 @@
 @students = []
 
 def try_load_students
-    load_students("students.csv")
-    puts "Loaded #{@students.count} from students.csv"
+    puts "Hello, which file would you like to load:"
+    filename = gets.chomp
+    load_students(filename)
 end
 
 def interactive_menu
@@ -39,7 +40,7 @@ def input_students
   cohort = STDIN.gets.chomp
   while !name.empty? do
     add_student(name, cohort)
-    puts "Now we have #{@students.count} students"
+    puts "\nNow we have #{@students.count} students\n".center(40)
     name = STDIN.gets.chomp
     cohort = STDIN.gets.chomp
       if cohort.empty?
@@ -60,7 +61,7 @@ end
 
 def print_header
   puts "The students of Villains Academy".center(40)
-  puts "--------_-_-_-_---------".center(40)
+  puts "--------_-_-_-_---------\n".center(40)
 end
 
 def print_students_list
@@ -77,16 +78,19 @@ def print_students_list
 end
 
 def print_footer
-  puts "Overall, we have #{@students.count} great students"
+  puts "Overall, we have #{@students.count} great students".center(40)
 end
 
 def save_students
-  file = File.open("students.csv", "w")
+  puts "Tell me in which file to save:"
+  filename = gets.chomp
+  file = File.open(filename, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
+  puts "\nSaved #{@students.count} students to #{filename}!\n".center(40)
   file.close
 end
 
@@ -96,6 +100,7 @@ def load_students(filename = "students.csv")
   name, cohort = line.chomp.split(",")
     add_student(name, cohort)
   end
+  puts "Sucessfully loaded #{@students.count} from #{filename}".center(60)
   file.close
 end
 
