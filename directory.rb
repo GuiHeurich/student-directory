@@ -84,24 +84,24 @@ end
 def save_students
   puts "Tell me in which file to save:"
   filename = gets.chomp
-  file = File.open(filename, "w")
+  file = File.open(filename, "w") do |file|
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
   puts "\nSaved #{@students.count} students to #{filename}!\n".center(40)
-  file.close
+  end
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+  file = File.open(filename, "r") do |file|
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
     add_student(name, cohort)
   end
   puts "Sucessfully loaded #{@students.count} from #{filename}".center(60)
-  file.close
+  end
 end
 
 try_load_students
